@@ -21,9 +21,17 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        Order::create($request->all());
+        $validated = $request->validate([
+            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'total' => ['required', 'numeric', 'min:0'],
+            'status' => ['required', 'string', 'max:255'],
+            'payment_method' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:500'],
+        ]);
 
-        return redirect()->route('orders.index');
+        Order::create($validated);
+
+        return redirect()->route('orders.index')->with('success', 'Pedido criado com sucesso.');
     }
 
     public function show(string $id)
@@ -44,9 +52,17 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        $order->update($request->all());
+        $validated = $request->validate([
+            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'total' => ['required', 'numeric', 'min:0'],
+            'status' => ['required', 'string', 'max:255'],
+            'payment_method' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:500'],
+        ]);
 
-        return redirect()->route('orders.index');
+        $order->update($validated);
+
+        return redirect()->route('orders.index')->with('success', 'Pedido atualizado com sucesso.');
     }
 
     public function destroy(string $id)
@@ -55,6 +71,6 @@ class OrderController extends Controller
 
         $order->delete();
 
-        return redirect()->route('orders.index');
+        return redirect()->route('orders.index')->with('success', 'Pedido removido com sucesso.');
     }
 }

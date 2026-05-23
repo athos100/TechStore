@@ -21,9 +21,14 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        Category::create($request->all());
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+        ]);
 
-        return redirect()->route('categories.index');
+        Category::create($validated);
+
+        return redirect()->route('categories.index')->with('success', 'Categoria criada com sucesso.');
     }
 
     public function show(string $id)
@@ -44,9 +49,14 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        $category->update($request->all());
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+        ]);
 
-        return redirect()->route('categories.index');
+        $category->update($validated);
+
+        return redirect()->route('categories.index')->with('success', 'Categoria atualizada com sucesso.');
     }
 
     public function destroy(string $id)
@@ -55,6 +65,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Categoria removida com sucesso.');
     }
 }

@@ -11,10 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 class RedirectIfAuthenticated
 {
     /**
-     * Handle an incoming request.
+     * Trata uma requisicao recebida.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    // O método handle(LIDAR) é responsável por verificar se o usuário já está autenticado. Se estiver, ele redireciona para a página inicial (HOME). Caso contrário, ele permite que a requisição prossiga normalmente :D.
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
         $guards = empty($guards) ? [null] : $guards;

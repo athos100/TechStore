@@ -20,9 +20,19 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        Product::create($request->all());
+        $validated = $request->validate([
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'stock' => ['required', 'integer', 'min:0'],
+            'image' => ['nullable', 'string', 'max:2048'],
+            'brand' => ['nullable', 'string', 'max:255'],
+        ]);
 
-        return redirect()->route('products.index');
+        Product::create($validated);
+
+        return redirect()->route('products.index')->with('success', 'Produto criado com sucesso.');
     }
 
     public function show(string $id)
@@ -43,9 +53,19 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        $product->update($request->all());
+        $validated = $request->validate([
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'stock' => ['required', 'integer', 'min:0'],
+            'image' => ['nullable', 'string', 'max:2048'],
+            'brand' => ['nullable', 'string', 'max:255'],
+        ]);
 
-        return redirect()->route('products.index');
+        $product->update($validated);
+
+        return redirect()->route('products.index')->with('success', 'Produto atualizado com sucesso.');
     }
 
     public function destroy(string $id)
@@ -54,6 +74,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Produto removido com sucesso.');
     }
 }

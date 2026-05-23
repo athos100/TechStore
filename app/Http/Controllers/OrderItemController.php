@@ -21,9 +21,17 @@ class OrderItemController extends Controller
 
     public function store(Request $request)
     {
-        OrderItem::create($request->all());
+        $validated = $request->validate([
+            'order_id' => ['required', 'integer', 'exists:orders,id'],
+            'product_id' => ['required', 'integer', 'exists:products,id'],
+            'quantity' => ['required', 'integer', 'min:1'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'subtotal' => ['required', 'numeric', 'min:0'],
+        ]);
 
-        return redirect()->route('order-items.index');
+        OrderItem::create($validated);
+
+        return redirect()->route('order-items.index')->with('success', 'Item do pedido criado com sucesso.');
     }
 
     public function show(string $id)
@@ -44,9 +52,17 @@ class OrderItemController extends Controller
     {
         $orderItem = OrderItem::findOrFail($id);
 
-        $orderItem->update($request->all());
+        $validated = $request->validate([
+            'order_id' => ['required', 'integer', 'exists:orders,id'],
+            'product_id' => ['required', 'integer', 'exists:products,id'],
+            'quantity' => ['required', 'integer', 'min:1'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'subtotal' => ['required', 'numeric', 'min:0'],
+        ]);
 
-        return redirect()->route('order-items.index');
+        $orderItem->update($validated);
+
+        return redirect()->route('order-items.index')->with('success', 'Item do pedido atualizado com sucesso.');
     }
 
     public function destroy(string $id)
@@ -55,6 +71,6 @@ class OrderItemController extends Controller
 
         $orderItem->delete();
 
-        return redirect()->route('order-items.index');
+        return redirect()->route('order-items.index')->with('success', 'Item do pedido removido com sucesso.');
     }
 }

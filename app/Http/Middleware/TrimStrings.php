@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 class TrimStrings extends Middleware
 {
     /**
-     * The names of the attributes that should not be trimmed.
+     * Nomes dos atributos que nao devem ser removidos com trim.
      *
      * @var array<int, string>
      */

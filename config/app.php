@@ -157,11 +157,11 @@ return [
 
     'providers' => ServiceProvider::defaultProviders()->merge([
         /*
-         * Package Service Providers...
+         * Service Providers de Pacotes...
          */
 
         /*
-         * Application Service Providers...
+         * Service Providers da Aplicacao...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
