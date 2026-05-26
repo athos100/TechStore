@@ -31,11 +31,19 @@ class ProductController extends Controller
             'stock' => ['required', 'integer', 'min:0'],
             'brand' => ['nullable', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image_2' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image_3' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'manual_pdf' => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
         ]);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('products/images', 'public');
+        }
+        if ($request->hasFile('image_2')) {
+            $validated['image_2'] = $request->file('image_2')->store('products/images', 'public');
+        }
+        if ($request->hasFile('image_3')) {
+            $validated['image_3'] = $request->file('image_3')->store('products/images', 'public');
         }
 
         if ($request->hasFile('manual_pdf')) {
@@ -63,11 +71,19 @@ class ProductController extends Controller
             'stock' => ['required', 'integer', 'min:0'],
             'brand' => ['nullable', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image_2' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image_3' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'manual_pdf' => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
         ]);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('products/images', 'public');
+        }
+        if ($request->hasFile('image_2')) {
+            $validated['image_2'] = $request->file('image_2')->store('products/images', 'public');
+        }
+        if ($request->hasFile('image_3')) {
+            $validated['image_3'] = $request->file('image_3')->store('products/images', 'public');
         }
 
         if ($request->hasFile('manual_pdf')) {

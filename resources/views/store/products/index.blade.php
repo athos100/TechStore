@@ -1,8 +1,8 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="card section">
-    <h1>Catalogo de produtos</h1>
+    <h1>Catálogo de produtos</h1>
     <form method="GET" action="{{ route('store.products.index') }}" style="display:grid;grid-template-columns:2fr 1fr auto;gap:8px;">
         <input class="form-control" name="q" value="{{ $query }}" placeholder="Buscar por nome">
         <select class="form-control" name="category">
@@ -17,9 +17,9 @@
 
 <div class="grid products">
     @forelse($products as $product)
-        <article class="card">
-            @if($product->image)
-                <img src="{{ asset('storage/' . $product->image) }}" class="product-img" alt="{{ $product->name }}">
+        <article class="card product-card">
+            @if($product->main_image)
+                <img src="{{ asset('storage/' . $product->main_image) }}" class="product-img" alt="{{ $product->name }}">
             @else
                 <div class="product-img"></div>
             @endif

@@ -17,7 +17,7 @@ class UserFactory extends Factory
     protected static ?string $password;
 
     /**
-     * Define o estado padrao do modelo.
+     * Define o estado padrão do modelo.
      *
      * @return array<string, mixed>
      */
@@ -33,7 +33,7 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indica que o e-mail do modelo deve ficar nao verificado.
+     * Indica que o e-mail do modelo deve ficar não verificado.
      */
     public function unverified(): static
     {

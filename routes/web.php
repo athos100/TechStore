@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
@@ -10,7 +10,24 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyOrderController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
+
+/*
+use Illuminate\Support\Facades\URL;
+
+Route::get('/teste-link-assinado', function () {
+    return URL::temporarySignedRoute(
+        'acao-segura',
+        now()->addMinutes(10),
+        ['user' => 15]
+    );
+});
+
+Route::get('/acao-segura', function () {
+    return 'Acesso permitido: assinatura válida.';
+})->name('acao-segura')->middleware('signed');
+*/
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -36,6 +53,8 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/checkout', [CheckoutController::class, 'place'])->name('checkout.place');
 
     Route::get('/meus-pedidos', [MyOrderController::class, 'index'])->name('orders.my');
+    Route::post('/produtos/{product}/avaliacoes', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::delete('/produtos/{product}/avaliacoes', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function (): void {

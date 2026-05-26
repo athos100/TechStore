@@ -7,11 +7,10 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Mi
 class PreventRequestsDuringMaintenance extends Middleware
 {
     /**
-     * URIs (caminho/endereço) que devem permanecer acessiveis enquanto o modo de manutencao estiver ativo.
+     * URIs (caminho/endereço) que devem permanecer acessíveis enquanto o modo de manutenção estiver ativo.
      *
      * @var array<int, string>
      */
-    // Aqui voce pode adicionar os caminhos que deseja que fiquem acessiveis mesmo quando a aplicacao estiver em manutencao, por exemplo: '/status', '/api/*', etc.
     protected $except = [
         //
     ];

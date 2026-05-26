@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class Authenticate extends Middleware
 {
     /**
-     * Obtem o caminho para onde o usuario deve ser redirecionado quando nao estiver autenticado.
+     * Obtém o caminho para onde o usuario deve ser redirecionado quando não estiver autenticado.
      */
     protected function redirectTo(Request $request): ?string
     {

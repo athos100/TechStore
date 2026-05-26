@@ -1,26 +1,36 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <h1>Pedido #{{ $order->id }}</h1>
+
 <div class="card section">
     <p><strong>Cliente:</strong> {{ $order->user->name ?? 'N/A' }}</p>
     <p><strong>Total:</strong> R$ {{ number_format($order->total, 2, ',', '.') }}</p>
-    <p><strong>Endereco:</strong> {{ $order->address }}</p>
+    <p><strong>Endereço:</strong> {{ $order->address }}</p>
 
     <form method="POST" action="{{ route('admin.orders.update-status', $order) }}">
-        @csrf @method('PATCH')
+        @csrf
+        @method('PATCH')
+
         <label>Status</label>
         <select class="form-control" name="status">
-            @foreach(['pendente','pago','enviado','entregue','cancelado'] as $status)
+            @foreach(['pendente', 'pago', 'enviado', 'entregue', 'cancelado'] as $status)
                 <option value="{{ $status }}" @selected($order->status === $status)>{{ ucfirst($status) }}</option>
             @endforeach
         </select>
+
         <button class="btn" type="submit">Atualizar status</button>
     </form>
 
     <h3>Itens</h3>
     <table>
-        <tr><th>Produto</th><th>Qtd</th><th>Preco</th><th>Subtotal</th></tr>
+        <tr>
+            <th>Produto</th>
+            <th>Qtd</th>
+            <th>Preço</th>
+            <th>Subtotal</th>
+        </tr>
+
         @foreach($order->items as $item)
             <tr>
                 <td>{{ $item->product->name ?? 'Produto removido' }}</td>

@@ -28,6 +28,20 @@ class CatalogController extends Controller
     {
         $product->load('category');
 
-        return view('store.products.show', compact('product'));
+        $reviews = $product->reviews()
+            ->with('user')
+            ->latest()
+            ->paginate(5)
+            ->withQueryString();
+
+        $reviewsCount = $product->reviews()->count();
+        $averageRating = $reviewsCount > 0
+            ? round((float) $product->reviews()->avg('rating'), 1)
+            : 0.0;
+        $userReview = auth()->check()
+            ? $product->reviews()->where('user_id', auth()->id())->first()
+            : null;
+
+        return view('store.products.show', compact('product', 'averageRating', 'reviewsCount', 'userReview', 'reviews'));
     }
 }

@@ -161,7 +161,7 @@ return [
          */
 
         /*
-         * Service Providers da Aplicacao...
+         * Service Providers da Aplicação...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,

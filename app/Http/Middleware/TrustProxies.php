@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 class TrustProxies extends Middleware
 {
     /**
-     * Proxies confiaveis para esta aplicacao.
+     * Proxies confiáveis para esta aplicação.
      *
      * @var array<int, string>|string|null
      */
     protected $proxies;
 
     /**
-     * Cabecalhos que devem ser usados para detectar proxies.
+     * Cabeçalhos que devem ser usados para detectar proxies.
      *
      * @var int
      */

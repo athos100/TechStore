@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 class VerifyCsrfToken extends Middleware
 {
     /**
-     * URIs que devem ser excluidas da verificacao de CSRF.
+     * URIs que devem ser excluídas da verificação de CSRF.
      *
      * @var array<int, string>
      */

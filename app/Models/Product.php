@@ -13,6 +13,8 @@ class Product extends Model
         'price',
         'stock',
         'image',
+        'image_2',
+        'image_3',
         'brand',
         'manual_pdf',
     ];
@@ -25,5 +27,24 @@ class Product extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function getMainImageAttribute(): ?string
+    {
+        return $this->image ?: ($this->image_2 ?: $this->image_3);
+    }
+
+    public function getGalleryImagesAttribute(): array
+    {
+        return array_values(array_filter([
+            $this->image,
+            $this->image_2,
+            $this->image_3,
+        ]));
     }
 }

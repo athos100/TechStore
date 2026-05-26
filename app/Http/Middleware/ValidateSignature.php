@@ -7,7 +7,7 @@ use Illuminate\Routing\Middleware\ValidateSignature as Middleware;
 class ValidateSignature extends Middleware
 {
     /**
-     * Nomes dos parametros de query string que devem ser ignorados.
+     * Nomes dos parâmetros de query string que devem ser ignorados.
      *
      * @var array<int, string>
      */

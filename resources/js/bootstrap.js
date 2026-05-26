@@ -1,5 +1,5 @@
 /**
- * Vamos carregar a biblioteca HTTP axios, que permite enviar requisicoes facilmente
+ * Vamos carregar a biblioteca HTTP axios, que permite enviar requisições facilmente
  * para o back-end Laravel. Esta biblioteca lida automaticamente com o envio do
  * token CSRF no cabecalho com base no valor do cookie de token "XSRF".
  */

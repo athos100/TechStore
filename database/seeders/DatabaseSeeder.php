@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $categorias = collect(['Celulares', 'Notebooks', 'Acessorios', 'Perifericos', 'Componentes'])
+        $categorias = collect(['Celulares', 'Notebooks', 'Acessórios', 'Periféricos', 'Componentes'])
             ->map(fn ($name) => Category::firstOrCreate(['name' => $name], ['description' => "Categoria de {$name}."]));
 
         if (Product::count() === 0) {

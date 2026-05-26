@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Event;
 class EventServiceProvider extends ServiceProvider
 {
     /**
-     * Mapeamento de eventos para listeners da aplicacao.
+     * Mapeamento de eventos para listeners da aplicação.
      *
      * @var array<class-string, array<int, class-string>>
      */
@@ -21,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Registra eventos da aplicacao.
+     * Registra eventos da aplicação.
      */
     public function boot(): void
     {

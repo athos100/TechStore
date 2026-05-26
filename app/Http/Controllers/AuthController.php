@@ -22,7 +22,7 @@ class AuthController extends Controller
         ]);
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
-            return back()->withErrors(['email' => 'Credenciais invalidas.'])->onlyInput('email');
+            return back()->withErrors(['email' => 'Credenciais inválidas.'])->onlyInput('email');
         }
 
         $request->session()->regenerate();
@@ -63,6 +63,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('home')->with('success', 'Voce saiu da conta.');
+        return redirect()->route('home')->with('success', 'Você saiu da conta.');
     }
 }

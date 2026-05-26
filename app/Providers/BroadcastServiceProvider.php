@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 class BroadcastServiceProvider extends ServiceProvider
 {
     /**
-     * Inicializa os servicos da aplicacao.
+     * Inicializa os serviços da aplicação.
      */
     public function boot(): void
     {

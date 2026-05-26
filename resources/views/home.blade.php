@@ -1,10 +1,10 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <section class="hero">
-    <h1>Os melhores eletronicos estao na TechStore</h1>
-    <p>Produtos de qualidade com preco justo, compra segura e entrega rapida.</p>
-    <a class="btn" href="{{ route('store.products.index') }}">Acessar catalogo</a>
+    <h1>Os melhores eletrônicos estão na TechStore</h1>
+    <p>Produtos de qualidade com preço justo, compra segura e entrega rápida.</p>
+    <a class="btn" href="{{ route('store.products.index') }}">Acessar catálogo</a>
 </section>
 
 <section class="section card">
@@ -20,11 +20,11 @@
 
 <section class="section">
     <h2>Produtos em destaque</h2>
-    <div class="grid products">
+    <div class="grid featured-products">
         @forelse($products as $product)
-            <article class="card">
-                @if($product->image)
-                    <img src="{{ asset('storage/' . $product->image) }}" class="product-img" alt="{{ $product->name }}">
+            <article class="card product-card">
+                @if($product->main_image)
+                    <img src="{{ asset('storage/' . $product->main_image) }}" class="product-img" alt="{{ $product->name }}">
                 @else
                     <div class="product-img"></div>
                 @endif
