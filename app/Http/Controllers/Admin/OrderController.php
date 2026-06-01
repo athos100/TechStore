@@ -38,6 +38,10 @@ class OrderController extends Controller
         $oldStatus = $order->status;
         $newStatus = $data['status'];
 
+        if ($oldStatus === 'cancelado' && $newStatus !== 'cancelado') {
+            return back()->withErrors(['status' => 'Pedidos cancelados nao podem voltar para outro status.']);
+        }
+
         DB::transaction(function () use ($order, $oldStatus, $newStatus): void {
             $order->load('items.product');
 
@@ -46,15 +50,6 @@ class OrderController extends Controller
                 foreach ($order->items as $item) {
                     if ($item->product) {
                         $item->product->increment('stock', $item->quantity);
-                    }
-                }
-            }
-
-            // Saindo de cancelado: volta a descontar do estoque.
-            if ($oldStatus === 'cancelado' && $newStatus !== 'cancelado') {
-                foreach ($order->items as $item) {
-                    if ($item->product) {
-                        $item->product->decrement('stock', $item->quantity);
                     }
                 }
             }

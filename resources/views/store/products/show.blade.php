@@ -62,6 +62,7 @@
     </div>
 
     @auth
+        @if($canReview)
         <div class="card" style="background:#f8fafc;">
             <h3>{{ $userReview ? 'Sua avaliação (editar)' : 'Deixe sua avaliação' }}</h3>
 
@@ -87,6 +88,9 @@
                 </form>
             @endif
         </div>
+        @else
+            <p class="muted">Voce podera avaliar este produto apos a entrega.</p>
+        @endif
     @else
         <p>Faça <a href="{{ route('login') }}">login</a> para avaliar este produto.</p>
     @endauth

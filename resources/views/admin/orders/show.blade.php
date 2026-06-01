@@ -8,6 +8,10 @@
     <p><strong>Total:</strong> R$ {{ number_format($order->total, 2, ',', '.') }}</p>
     <p><strong>Endereço:</strong> {{ $order->address }}</p>
 
+    @if($order->status === 'cancelado')
+        <p><strong>Status:</strong> Cancelado</p>
+        <p class="muted">Pedidos cancelados nao podem voltar para outro status.</p>
+    @else
     <form method="POST" action="{{ route('admin.orders.update-status', $order) }}">
         @csrf
         @method('PATCH')
@@ -21,6 +25,7 @@
 
         <button class="btn" type="submit">Atualizar status</button>
     </form>
+    @endif
 
     <h3>Itens</h3>
     <table>

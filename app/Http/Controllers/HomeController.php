@@ -13,6 +13,7 @@ class HomeController extends Controller
         $query = $request->query('q');
 
         $products = Product::with('category')
+            ->active()
             ->when($query, fn ($q) => $q->where('name', 'like', "%{$query}%"))
             ->latest()
             ->take(8)

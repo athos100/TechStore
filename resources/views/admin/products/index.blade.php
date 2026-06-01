@@ -13,6 +13,7 @@
         <th>Categoria</th>
         <th>Preço</th>
         <th>Estoque</th>
+        <th>Status</th>
         <th>Ações</th>
     </tr>
     @foreach($products as $product)
@@ -22,14 +23,17 @@
             <td>{{ $product->category->name ?? 'Sem categoria' }}</td>
             <td>R$ {{ number_format($product->price, 2, ',', '.') }}</td>
             <td>{{ $product->stock }}</td>
+            <td>{{ $product->is_active ? 'Ativo' : 'Inativo' }}</td>
             <td>
                 <div class="action-buttons">
                     <a class="btn btn-edit" href="{{ route('admin.products.edit', $product) }}">Editar</a>
+                    @if($product->is_active)
                     <form method="POST" action="{{ route('admin.products.destroy', $product) }}">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-delete" type="submit">Excluir</button>
+                        <button class="btn btn-delete" type="submit">Desativar</button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>

@@ -18,6 +18,12 @@
 <label>Estoque</label>
 <input class="form-control" type="number" name="stock" min="0" value="{{ old('stock', $product->stock ?? '') }}" required>
 
+<label style="display:flex;align-items:center;gap:8px;margin-top:10px;">
+    <input type="hidden" name="is_active" value="0">
+    <input type="checkbox" name="is_active" value="1" @checked(old('is_active', $product->is_active ?? true))>
+    Produto ativo
+</label>
+
 <label>Marca</label>
 <input class="form-control" type="text" name="brand" value="{{ old('brand', $product->brand ?? '') }}">
 

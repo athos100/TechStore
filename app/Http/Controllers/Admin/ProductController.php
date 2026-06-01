@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -29,12 +30,14 @@ class ProductController extends Controller
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
+            'is_active' => ['nullable', 'boolean'],
             'brand' => ['nullable', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'image_2' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'image_3' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'manual_pdf' => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
         ]);
+        $validated['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('products/images', 'public');
@@ -69,35 +72,52 @@ class ProductController extends Controller
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
+            'is_active' => ['nullable', 'boolean'],
             'brand' => ['nullable', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'image_2' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'image_3' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'manual_pdf' => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
         ]);
+        $validated['is_active'] = $request->boolean('is_active');
+        $filesToDelete = [];
 
         if ($request->hasFile('image')) {
+            $filesToDelete[] = $product->image;
             $validated['image'] = $request->file('image')->store('products/images', 'public');
         }
         if ($request->hasFile('image_2')) {
+            $filesToDelete[] = $product->image_2;
             $validated['image_2'] = $request->file('image_2')->store('products/images', 'public');
         }
         if ($request->hasFile('image_3')) {
+            $filesToDelete[] = $product->image_3;
             $validated['image_3'] = $request->file('image_3')->store('products/images', 'public');
         }
 
         if ($request->hasFile('manual_pdf')) {
+            $filesToDelete[] = $product->manual_pdf;
             $validated['manual_pdf'] = $request->file('manual_pdf')->store('products/manuals', 'public');
         }
 
         $product->update($validated);
+        foreach ($filesToDelete as $path) {
+            $this->deletePublicFile($path);
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'Produto atualizado com sucesso.');
     }
 
     public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->route('admin.products.index')->with('success', 'Produto removido com sucesso.');
+        $product->update(['is_active' => false]);
+        return redirect()->route('admin.products.index')->with('success', 'Produto desativado com sucesso.');
+    }
+
+    private function deletePublicFile(?string $path): void
+    {
+        if ($path) {
+            Storage::disk('public')->delete($path);
+        }
     }
 }

@@ -12,12 +12,22 @@ class Product extends Model
         'description',
         'price',
         'stock',
+        'is_active',
         'image',
         'image_2',
         'image_3',
         'brand',
         'manual_pdf',
     ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 
     public function category()
     {

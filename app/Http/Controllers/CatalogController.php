@@ -14,6 +14,7 @@ class CatalogController extends Controller
         $categoryId = $request->query('category');
 
         $products = Product::with('category')
+            ->active()
             ->when($query, fn ($q) => $q->where('name', 'like', "%{$query}%"))
             ->when($categoryId, fn ($q) => $q->where('category_id', $categoryId))
             ->paginate(12)
@@ -26,6 +27,8 @@ class CatalogController extends Controller
 
     public function show(Product $product)
     {
+        abort_unless($product->is_active, 404);
+
         $product->load('category');
 
         $reviews = $product->reviews()
@@ -41,7 +44,13 @@ class CatalogController extends Controller
         $userReview = auth()->check()
             ? $product->reviews()->where('user_id', auth()->id())->first()
             : null;
+        $canReview = auth()->check()
+            ? auth()->user()->orders()
+                ->where('status', 'entregue')
+                ->whereHas('items', fn ($q) => $q->where('product_id', $product->id))
+                ->exists()
+            : false;
 
-        return view('store.products.show', compact('product', 'averageRating', 'reviewsCount', 'userReview', 'reviews'));
+        return view('store.products.show', compact('product', 'averageRating', 'reviewsCount', 'userReview', 'reviews', 'canReview'));
     }
 }

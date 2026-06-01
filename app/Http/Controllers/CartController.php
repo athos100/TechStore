@@ -17,6 +17,10 @@ class CartController extends Controller
 
     public function add(Request $request, Product $product)
     {
+        if (! $product->is_active) {
+            return redirect()->route('store.products.index')->withErrors(['product' => 'Este produto nao esta disponivel para compra.']);
+        }
+
         $data = $request->validate([
             'quantity' => ['required', 'integer', 'min:1'],
         ]);
@@ -53,6 +57,10 @@ class CartController extends Controller
 
     public function update(Request $request, Product $product)
     {
+        if (! $product->is_active) {
+            return redirect()->route('cart.index')->withErrors(['product' => 'Este produto nao esta disponivel para compra.']);
+        }
+
         $data = $request->validate([
             'quantity' => ['required', 'integer', 'min:1'],
         ]);

@@ -10,6 +10,17 @@ class ReviewController extends Controller
 {
     public function store(Request $request, Product $product)
     {
+        $canReview = $request->user()->orders()
+            ->where('status', 'entregue')
+            ->whereHas('items', fn ($q) => $q->where('product_id', $product->id))
+            ->exists();
+
+        if (! $canReview) {
+            return redirect()
+                ->route('store.products.show', $product)
+                ->withErrors(['review' => 'Voce so pode avaliar este produto apos a entrega.']);
+        }
+
         $data = $request->validate([
             'rating' => ['required', 'integer', 'between:1,5'],
             'comment' => ['nullable', 'string', 'max:2000'],

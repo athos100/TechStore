@@ -24,7 +24,7 @@ class CheckoutController extends Controller
     {
         $data = $request->validate([
             'address' => ['required', 'string', 'max:500'],
-            'payment_method' => ['required', 'string', 'max:255'],
+            'payment_method' => ['required', 'in:cartao,pix,boleto'],
         ]);
 
         $cart = session('cart', []);
@@ -45,6 +45,10 @@ class CheckoutController extends Controller
 
             foreach ($cart as $item) {
                 $product = \App\Models\Product::lockForUpdate()->findOrFail($item['id']);
+
+                if (! $product->is_active) {
+                    abort(422, 'Produto indisponivel para compra: ' . $product->name);
+                }
 
                 if ($item['quantity'] > $product->stock) {
                     abort(422, 'Estoque insuficiente para o produto: ' . $product->name);
