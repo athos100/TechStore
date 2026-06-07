@@ -10,10 +10,23 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->latest()->paginate(20);
-        return view('admin.products.index', compact('products'));
+        $status = $request->query('status', 'all');
+        $allowedStatuses = ['all', 'active', 'inactive'];
+
+        if (! in_array($status, $allowedStatuses, true)) {
+            $status = 'all';
+        }
+
+        $products = Product::with('category')
+            ->when($status === 'active', fn ($q) => $q->where('is_active', true))
+            ->when($status === 'inactive', fn ($q) => $q->where('is_active', false))
+            ->latest()
+            ->paginate(20)
+            ->withQueryString();
+
+        return view('admin.products.index', compact('products', 'status'));
     }
 
     public function create()
@@ -112,6 +125,12 @@ class ProductController extends Controller
     {
         $product->update(['is_active' => false]);
         return redirect()->route('admin.products.index')->with('success', 'Produto desativado com sucesso.');
+    }
+
+    public function reactivate(Product $product)
+    {
+        $product->update(['is_active' => true]);
+        return redirect()->route('admin.products.index')->with('success', 'Produto reativado com sucesso.');
     }
 
     private function deletePublicFile(?string $path): void

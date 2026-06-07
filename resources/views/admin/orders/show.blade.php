@@ -10,7 +10,7 @@
 
     @if($order->status === 'cancelado')
         <p><strong>Status:</strong> Cancelado</p>
-        <p class="muted">Pedidos cancelados nao podem voltar para outro status.</p>
+        <p class="muted">Pedidos cancelados não podem voltar para outro status.</p>
     @else
     <form method="POST" action="{{ route('admin.orders.update-status', $order) }}">
         @csrf

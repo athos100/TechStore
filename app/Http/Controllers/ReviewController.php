@@ -18,7 +18,7 @@ class ReviewController extends Controller
         if (! $canReview) {
             return redirect()
                 ->route('store.products.show', $product)
-                ->withErrors(['review' => 'Voce so pode avaliar este produto apos a entrega.']);
+                ->withErrors(['review' => 'Você só pode avaliar este produto após a entrega.']);
         }
 
         $data = $request->validate([

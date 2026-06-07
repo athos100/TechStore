@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Finalizacao do pedido</h1>
+<h1>Finalização do pedido</h1>
 <div class="card section">
 <table>
 <tr>
@@ -26,7 +26,7 @@
 <input class="form-control" type="text" name="address" value="{{ old('address') }}" required>
 <label>Forma de pagamento</label>
 <select class="form-control" name="payment_method" required>
-<option value="cartao">Cartao</option>
+<option value="cartao">Cartão</option>
 <option value="pix">PIX</option>
 <option value="boleto">Boleto</option>
 </select>

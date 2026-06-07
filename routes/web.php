@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function (): void {
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function (): void {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
+    Route::patch('/products/{product}/reactivate', [AdminProductController::class, 'reactivate'])->name('products.reactivate');
     Route::resource('products', AdminProductController::class)->except(['show']);
 
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');

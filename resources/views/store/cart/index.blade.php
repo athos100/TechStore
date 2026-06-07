@@ -4,7 +4,7 @@
 <h1>Carrinho de compras</h1>
 <div class="card section">
     @if(empty($cart))
-        <p>Seu carrinho esta vazio.</p>
+        <p>Seu carrinho está vazio.</p>
     @else
         <table>
 <tr>
@@ -12,7 +12,7 @@
 <th>Preço</th>
 <th>Qtd</th>
 <th>Subtotal</th>
-<th>Acoes</th>
+<th>Ações</th>
 </tr>
             @foreach($cart as $item)
                 <tr>

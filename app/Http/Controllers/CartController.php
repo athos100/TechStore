@@ -18,7 +18,7 @@ class CartController extends Controller
     public function add(Request $request, Product $product)
     {
         if (! $product->is_active) {
-            return redirect()->route('store.products.index')->withErrors(['product' => 'Este produto nao esta disponivel para compra.']);
+            return redirect()->route('store.products.index')->withErrors(['product' => 'Este produto não está disponível para compra.']);
         }
 
         $data = $request->validate([
@@ -30,7 +30,7 @@ class CartController extends Controller
         $quantity = $data['quantity'];
 
         if ($quantity > $product->stock) {
-            return back()->withErrors(['quantity' => 'Quantidade maior que o estoque disponivel.']);
+            return back()->withErrors(['quantity' => 'Quantidade maior que o estoque disponível.']);
         }
 
         if (isset($cart[$productId])) {
@@ -38,7 +38,7 @@ class CartController extends Controller
         }
 
         if ($quantity > $product->stock) {
-            return back()->withErrors(['quantity' => 'A soma no carrinho ultrapassa o estoque disponivel.']);
+            return back()->withErrors(['quantity' => 'A soma no carrinho ultrapassa o estoque disponível.']);
         }
 
         $cart[$productId] = [
@@ -58,7 +58,7 @@ class CartController extends Controller
     public function update(Request $request, Product $product)
     {
         if (! $product->is_active) {
-            return redirect()->route('cart.index')->withErrors(['product' => 'Este produto nao esta disponivel para compra.']);
+            return redirect()->route('cart.index')->withErrors(['product' => 'Este produto não está disponível para compra.']);
         }
 
         $data = $request->validate([
@@ -73,7 +73,7 @@ class CartController extends Controller
         }
 
         if ($data['quantity'] > $product->stock) {
-            return back()->withErrors(['quantity' => 'Quantidade maior que o estoque disponivel.']);
+            return back()->withErrors(['quantity' => 'Quantidade maior que o estoque disponível.']);
         }
 
         $cart[$productId]['quantity'] = $data['quantity'];

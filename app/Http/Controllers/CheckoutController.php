@@ -12,7 +12,7 @@ class CheckoutController extends Controller
     {
         $cart = session('cart', []);
         if (empty($cart)) {
-            return redirect()->route('store.products.index')->withErrors(['cart' => 'Seu carrinho esta vazio.']);
+            return redirect()->route('store.products.index')->withErrors(['cart' => 'Seu carrinho está vazio.']);
         }
 
         $total = collect($cart)->sum(fn ($item) => $item['quantity'] * $item['price']);
@@ -29,7 +29,7 @@ class CheckoutController extends Controller
 
         $cart = session('cart', []);
         if (empty($cart)) {
-            return redirect()->route('store.products.index')->withErrors(['cart' => 'Seu carrinho esta vazio.']);
+            return redirect()->route('store.products.index')->withErrors(['cart' => 'Seu carrinho está vazio.']);
         }
 
         $total = collect($cart)->sum(fn ($item) => $item['quantity'] * $item['price']);
@@ -47,7 +47,7 @@ class CheckoutController extends Controller
                 $product = \App\Models\Product::lockForUpdate()->findOrFail($item['id']);
 
                 if (! $product->is_active) {
-                    abort(422, 'Produto indisponivel para compra: ' . $product->name);
+                    abort(422, 'Produto indisponível para compra: ' . $product->name);
                 }
 
                 if ($item['quantity'] > $product->stock) {

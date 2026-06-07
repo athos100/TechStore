@@ -39,7 +39,7 @@ class OrderController extends Controller
         $newStatus = $data['status'];
 
         if ($oldStatus === 'cancelado' && $newStatus !== 'cancelado') {
-            return back()->withErrors(['status' => 'Pedidos cancelados nao podem voltar para outro status.']);
+            return back()->withErrors(['status' => 'Pedidos cancelados não podem voltar para outro status.']);
         }
 
         DB::transaction(function () use ($order, $oldStatus, $newStatus): void {

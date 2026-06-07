@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechStore</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('images/techstore-favicon.png') }}">
     <style>
         :root {
             --bg: #f4f7fb;

@@ -89,7 +89,7 @@
             @endif
         </div>
         @else
-            <p class="muted">Voce podera avaliar este produto apos a entrega.</p>
+            <p class="muted">Você poderá avaliar este produto após a entrega.</p>
         @endif
     @else
         <p>Faça <a href="{{ route('login') }}">login</a> para avaliar este produto.</p>

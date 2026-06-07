@@ -13,7 +13,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Caminho da rota "home" da aplicação.
      *
-     * Normalmente, os usuários sao redirecionados para ca apos a autenticação.
+     * Normalmente, os usuários são redirecionados para cá após a autenticação.
      *
      * @var string
      */
