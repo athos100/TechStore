@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+// Controlador responsável por gerenciar o processo de checkout, incluindo a exibição do resumo do pedido, validação dos dados de pagamento e criação do pedido no banco de dados. Ele garante que o estoque seja atualizado corretamente e que o pedido seja associado ao usuário autenticado.
 class CheckoutController extends Controller
 {
     public function show()

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+// Modelo responsável por representar os produtos disponíveis para venda na aplicação, ele define os atributos que podem ser preenchidos em massa, como nome, descrição, preço, estoque e imagens, além de estabelecer as relações com a categoria a que pertence, os itens de pedido associados e as avaliações dos usuários. Esse modelo é fundamental para gerenciar o catálogo de produtos, permitindo que os administradores adicionem, editem ou removam produtos, e que os usuários visualizem detalhes e façam compras.
 class Product extends Model
 {
     protected $fillable = [

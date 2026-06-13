@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+// Controlador responsável por gerenciar as operações do carrinho de compras, incluindo exibição, adição, atualização e remoção de itens. O carrinho é armazenado na sessão do usuário para persistência temporária dos dados.
 class CartController extends Controller
 {
     public function index()

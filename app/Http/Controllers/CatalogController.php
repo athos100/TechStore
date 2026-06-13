@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+// Controlador responsável por gerenciar a exibição do catálogo de produtos, incluindo listagem, detalhes e avaliações. Ele permite que os usuários naveguem pelos produtos disponíveis, visualizem informações detalhadas e interajam com as avaliações dos produtos.
 class CatalogController extends Controller
 {
     public function index(Request $request)
@@ -45,7 +46,7 @@ class CatalogController extends Controller
             ? $product->reviews()->where('user_id', auth()->id())->first()
             : null;
         $canReview = auth()->check()
-            ? auth()->user()->orders()
+            ? auth()->user()-> orders()
                 ->where('status', 'entregue')
                 ->whereHas('items', fn ($q) => $q->where('product_id', $product->id))
                 ->exists()

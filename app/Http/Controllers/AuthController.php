@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+// Controlador responsável por gerenciar a autenticação dos usuários, incluindo login, registro e logout.
 class AuthController extends Controller
 {
     public function showLogin()

@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
+// Controlador responsável por gerenciar as avaliações dos produtos, permitindo que os usuários autenticados avaliem os produtos que compraram. Ele garante que apenas usuários que receberam o produto possam avaliá-lo, mantendo a integridade das avaliações e proporcionando feedback valioso para outros clientes. O controlador também permite que os usuários atualizem ou removam suas avaliações, garantindo flexibilidade e controle sobre suas opiniões.
 class ReviewController extends Controller
 {
     public function store(Request $request, Product $product)
